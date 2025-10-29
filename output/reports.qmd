@@ -1,0 +1,59 @@
+---
+title: "vaccine_ROI"
+author: "Casey Copen"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{---}
+title: "Vaccine Completion ROI Analysis"
+author: "Casey E. Copen"
+date: "2025-10-27"
+format: html
+execute:
+  echo: true
+  warning: true
+  message: true
+---
+
+## 🎯 Objective
+
+Evaluate whether exposure to a two-message SMS campaign increases second-dose vaccine completion among Medicaid members.
+
+---
+
+## 🧮 Data and Summary Table
+
+# Load packages
+library(dplyr)
+library(ggplot2)
+library(knitr)  # for pretty tables
+
+# Example data
+doses <- tibble::tibble(
+  exposed = c("Yes","Yes","No","No","Yes","No"),
+  completed_series = c(1,1,0,0,1,0)
+)
+
+# Summarize completion rate by exposure group
+summary_table <- doses %>%
+  group_by(exposed) %>%
+  summarise(completion_rate = mean(completed_series) * 100,
+            .groups = "drop")
+
+# Display table
+knitr::kable(summary_table, digits = 1,
+             col.names = c("Exposed", "Completion Rate (%)"))
+
+
+
+
+```
